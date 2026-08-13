@@ -272,7 +272,7 @@ export function buildSeed(): CrisisState {
   // Cluster reports into incidents by location + type
   const clusters = new Map<string, Report[]>();
   reports.forEach((r, i) => {
-    const key = `${r.location}|${MESSAGES[i].type}`;
+    const key = `${r.location}|${MESSAGES[i]!.type}`;
     const arr = clusters.get(key) ?? [];
     arr.push(r);
     clusters.set(key, arr);
@@ -296,7 +296,7 @@ export function buildSeed(): CrisisState {
       type,
       location: loc,
       affectedPeople: group.reduce((s, r) => s + r.affectedPeople, 0),
-      requiredResource: MESSAGES[idx].res,
+      requiredResource: MESSAGES[idx]!.res,
       urgency,
       priorityScore: score,
       priorityFactors: buildFactors(type, group.length),
@@ -304,8 +304,8 @@ export function buildSeed(): CrisisState {
       status: "new",
       assignedVolunteerId: null,
       reportIds: group.map((r) => r.id),
-      createdAt: group[0].createdAt,
-      updatedAt: group[group.length - 1].createdAt,
+      createdAt: group[0]!.createdAt,
+      updatedAt: group[group.length - 1]!.createdAt,
       verified: false,
     });
   }
@@ -363,7 +363,7 @@ export function buildSeed(): CrisisState {
   const tasks: Task[] = incidents.slice(0, 20).map((inc, i) => {
     const status: Task["status"] =
       i % 5 === 0 ? "new" : i % 5 === 1 ? "prioritized" : i % 5 === 2 ? "assigned" : i % 5 === 3 ? "in_progress" : "completed";
-    const assignee = status === "new" || status === "prioritized" ? null : volunteers[i % volunteers.length].id;
+    const assignee = status === "new" || status === "prioritized" ? null : volunteers[i % volunteers.length]!.id;
     return {
       id: `T${201 + i}`,
       incidentId: inc.id,
@@ -385,7 +385,7 @@ export function buildSeed(): CrisisState {
     else if (t.status === "prioritized") inc.status = "prioritized";
     if (t.assigneeId) {
       inc.assignedVolunteerId = t.assigneeId;
-      const v = volunteers.find((v) => v.id === t.assigneeId)!;
+      const v = volunteers.find((x) => x.id === t.assigneeId)!;
       if (t.status !== "completed") {
         v.status = "busy";
         v.currentTaskId = t.id;
