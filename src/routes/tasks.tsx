@@ -20,10 +20,10 @@ export const Route = createFileRoute("/tasks")({
 });
 
 const COLUMNS: { key: TaskStatus; label: string; next?: TaskStatus }[] = [
-  { key: "pending", label: "Pending", next: "accepted" },
-  { key: "accepted", label: "Accepted", next: "in_transit" },
-  { key: "in_transit", label: "In Transit", next: "on_site" },
-  { key: "on_site", label: "On Site", next: "completed" },
+  { key: "new", label: "New", next: "prioritized" },
+  { key: "prioritized", label: "Prioritized", next: "assigned" },
+  { key: "assigned", label: "Assigned", next: "in_progress" },
+  { key: "in_progress", label: "In Progress", next: "completed" },
   { key: "completed", label: "Completed" },
 ];
 
