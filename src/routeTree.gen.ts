@@ -14,6 +14,7 @@ import { Route as AiProcessingRouteImport } from './routes/ai-processing'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MapRouteImport } from './routes/map'
+import { Route as VolunteersRouteImport } from './routes/volunteers'
 import { Route as IncidentsIndexRouteImport } from './routes/incidents.index'
 import { Route as IncidentsIdRouteImport } from './routes/incidents.$id'
 import { Route as ReportsIndexRouteImport } from './routes/reports.index'
@@ -44,6 +45,11 @@ const MapRoute = MapRouteImport.update({
   path: '/map',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VolunteersRoute = VolunteersRouteImport.update({
+  id: '/volunteers',
+  path: '/volunteers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IncidentsIndexRoute = IncidentsIndexRouteImport.update({
   id: '/incidents/',
   path: '/incidents/',
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
+  '/volunteers': typeof VolunteersRoute
   '/incidents/$id': typeof IncidentsIdRoute
   '/reports/new': typeof ReportsNewRoute
   '/incidents/': typeof IncidentsIndexRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
+  '/volunteers': typeof VolunteersRoute
   '/incidents/$id': typeof IncidentsIdRoute
   '/reports/new': typeof ReportsNewRoute
   '/incidents': typeof IncidentsIndexRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
+  '/volunteers': typeof VolunteersRoute
   '/incidents/$id': typeof IncidentsIdRoute
   '/reports/new': typeof ReportsNewRoute
   '/incidents/': typeof IncidentsIndexRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/map'
+    | '/volunteers'
     | '/incidents/$id'
     | '/reports/new'
     | '/incidents/'
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/map'
+    | '/volunteers'
     | '/incidents/$id'
     | '/reports/new'
     | '/incidents'
@@ -129,6 +140,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/login'
     | '/map'
+    | '/volunteers'
     | '/incidents/$id'
     | '/reports/new'
     | '/incidents/'
@@ -141,6 +153,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
   MapRoute: typeof MapRoute
+  VolunteersRoute: typeof VolunteersRoute
   IncidentsIdRoute: typeof IncidentsIdRoute
   ReportsNewRoute: typeof ReportsNewRoute
   IncidentsIndexRoute: typeof IncidentsIndexRoute
@@ -184,6 +197,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MapRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/volunteers': {
+      id: '/volunteers'
+      path: '/volunteers'
+      fullPath: '/volunteers'
+      preLoaderRoute: typeof VolunteersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/incidents/': {
       id: '/incidents/'
       path: '/incidents'
@@ -221,6 +241,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
   MapRoute: MapRoute,
+  VolunteersRoute: VolunteersRoute,
   IncidentsIdRoute: IncidentsIdRoute,
   ReportsNewRoute: ReportsNewRoute,
   IncidentsIndexRoute: IncidentsIndexRoute,
