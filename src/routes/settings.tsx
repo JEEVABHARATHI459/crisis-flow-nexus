@@ -4,7 +4,13 @@ import { AppShell } from "@/components/crisis/AppShell";
 import { PageHeader, SafetyNote } from "@/components/crisis/ui-bits";
 import { Button } from "@/components/ui/button";
 import { actions, useCrisis } from "@/lib/crisis/store";
-import { LANGS, t } from "@/lib/crisis/i18n";
+import type { Lang } from "@/lib/crisis/i18n";
+
+const LANGS: { code: Lang; label: string }[] = [
+  { code: "en", label: "English" },
+  { code: "ta", label: "தமிழ்" },
+  { code: "hi", label: "हिन्दी" },
+];
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/settings")({
@@ -37,7 +43,7 @@ function SettingsPage() {
 
   return (
     <AppShell>
-      <PageHeader title="Settings" subtitle={t(state.language, "settingsSubtitle")} />
+      <PageHeader title="Settings" subtitle="Session, language and demo data management." />
 
       <div className="grid gap-4 lg:grid-cols-2">
         <section className="panel p-4">
