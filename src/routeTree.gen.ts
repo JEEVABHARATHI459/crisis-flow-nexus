@@ -14,6 +14,7 @@ import { Route as AiProcessingRouteImport } from './routes/ai-processing'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IncidentsIndexRouteImport } from './routes/incidents.index'
+import { Route as IncidentsIdRouteImport } from './routes/incidents.$id'
 import { Route as ReportsIndexRouteImport } from './routes/reports.index'
 import { Route as ReportsNewRouteImport } from './routes/reports.new'
 
@@ -42,6 +43,11 @@ const IncidentsIndexRoute = IncidentsIndexRouteImport.update({
   path: '/incidents/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IncidentsIdRoute = IncidentsIdRouteImport.update({
+  id: '/incidents/$id',
+  path: '/incidents/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReportsIndexRoute = ReportsIndexRouteImport.update({
   id: '/reports/',
   path: '/reports/',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/ai-processing': typeof AiProcessingRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/incidents/$id': typeof IncidentsIdRoute
   '/reports/new': typeof ReportsNewRoute
   '/incidents/': typeof IncidentsIndexRoute
   '/reports/': typeof ReportsIndexRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/ai-processing': typeof AiProcessingRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/incidents/$id': typeof IncidentsIdRoute
   '/reports/new': typeof ReportsNewRoute
   '/incidents': typeof IncidentsIndexRoute
   '/reports': typeof ReportsIndexRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/ai-processing': typeof AiProcessingRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/incidents/$id': typeof IncidentsIdRoute
   '/reports/new': typeof ReportsNewRoute
   '/incidents/': typeof IncidentsIndexRoute
   '/reports/': typeof ReportsIndexRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/ai-processing'
     | '/dashboard'
     | '/login'
+    | '/incidents/$id'
     | '/reports/new'
     | '/incidents/'
     | '/reports/'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/ai-processing'
     | '/dashboard'
     | '/login'
+    | '/incidents/$id'
     | '/reports/new'
     | '/incidents'
     | '/reports'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/ai-processing'
     | '/dashboard'
     | '/login'
+    | '/incidents/$id'
     | '/reports/new'
     | '/incidents/'
     | '/reports/'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   AiProcessingRoute: typeof AiProcessingRoute
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
+  IncidentsIdRoute: typeof IncidentsIdRoute
   ReportsNewRoute: typeof ReportsNewRoute
   IncidentsIndexRoute: typeof IncidentsIndexRoute
   ReportsIndexRoute: typeof ReportsIndexRoute
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IncidentsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/incidents/$id': {
+      id: '/incidents/$id'
+      path: '/incidents/$id'
+      fullPath: '/incidents/$id'
+      preLoaderRoute: typeof IncidentsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reports/': {
       id: '/reports/'
       path: '/reports'
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   AiProcessingRoute: AiProcessingRoute,
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
+  IncidentsIdRoute: IncidentsIdRoute,
   ReportsNewRoute: ReportsNewRoute,
   IncidentsIndexRoute: IncidentsIndexRoute,
   ReportsIndexRoute: ReportsIndexRoute,

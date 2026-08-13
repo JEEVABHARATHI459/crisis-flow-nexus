@@ -221,7 +221,10 @@ function IncidentDetail() {
               variant="outline"
               onClick={() => {
                 const n = Number(editScore);
-                if (!n || n < 1 || n > 100) return toast.error("Enter a score between 1 and 100");
+                if (!n || n < 1 || n > 100) {
+                  toast.error("Enter a score between 1 and 100");
+                  return;
+                }
                 actions.verifyPriority(inc.id, "accept", n);
                 toast.success(`Priority set to ${n}`);
                 setShowWhy(false);
