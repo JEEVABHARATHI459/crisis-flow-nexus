@@ -19,7 +19,7 @@ import {
   Users,
   X,
 } from "lucide-react";
-import { actions, hydrateStore, useCrisis, useHydrated } from "@/lib/crisis/store";
+import { actions, hydrateStore, useCrisis } from "@/lib/crisis/store";
 import { t, type TKey } from "@/lib/crisis/i18n";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -54,8 +54,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (hydrated && !state.session) navigate({ to: "/login" });
-  }, [hydrated, state.session, navigate]);
+    if (!state.session) navigate({ to: "/login" });
+  }, [state.session, navigate]);
 
   useEffect(() => {
     setOpen(false);
@@ -82,7 +82,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     return [...inc, ...vol, ...rep];
   }, [query, state.incidents, state.volunteers, state.reports]);
 
-  if (!hydrated || !state.session) {
+  if (!state.session) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
         <div className="flex items-center gap-3 text-muted-foreground">
