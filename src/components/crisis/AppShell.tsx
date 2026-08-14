@@ -41,7 +41,7 @@ const NAV: { to: string; key: TKey; icon: typeof LayoutDashboard }[] = [
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const state = useCrisis();
-  const hydrated = useHydrated();
+  
   const navigate = useNavigate();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
