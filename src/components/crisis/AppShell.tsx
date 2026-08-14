@@ -19,7 +19,7 @@ import {
   Users,
   X,
 } from "lucide-react";
-import { actions, hydrateStore, useCrisis, useHydrated } from "@/lib/crisis/store";
+import { actions, hydrateStore, useCrisis } from "@/lib/crisis/store";
 import { t, type TKey } from "@/lib/crisis/i18n";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
