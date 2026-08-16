@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Activity, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { actions, hydrateStore, useCrisis, useHydrated } from "@/lib/crisis/store";
+import { DEMO_USER } from "@/lib/crisis/credentials";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,8 +25,8 @@ function LoginPage() {
   const state = useCrisis();
   const hydrated = useHydrated();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("demo@crisismesh.ai");
-  const [password, setPassword] = useState("demo123");
+  const [email, setEmail] = useState(DEMO_USER.email);
+  const [password, setPassword] = useState(DEMO_USER.password);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -132,8 +133,8 @@ function LoginPage() {
           <div className="mt-5 flex items-start gap-2 rounded-md border border-border bg-card p-3 text-xs text-muted-foreground">
             <ShieldCheck className="mt-0.5 size-4 shrink-0 text-resolved" />
             <span>
-              Demo credentials — <span className="font-mono text-foreground">demo@crisismesh.ai</span> /{" "}
-              <span className="font-mono text-foreground">demo123</span>
+              Sign-in credentials — <span className="font-mono text-foreground">{DEMO_USER.email}</span> /{" "}
+              <span className="font-mono text-foreground">{DEMO_USER.password}</span>
             </span>
           </div>
         </form>

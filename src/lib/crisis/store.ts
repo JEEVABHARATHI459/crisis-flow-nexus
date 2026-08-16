@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from "react";
 import { buildSeed } from "./seed";
 import { extract, matchResources, priority } from "./ai";
+import { DEMO_USER, findUser } from "./credentials";
 import type {
   AuditLog,
   CrisisState,
