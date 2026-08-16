@@ -120,43 +120,19 @@ function notify(s: CrisisState, title: string, body: string, level: Urgency, lin
 
 export const actions = {
   /* ------- auth ------- */
-  login(email: string, password: string) {
-    const user = findUser(email, password);
-    if (!user) {
-      return {
-        ok: false as const,
-        error: `Invalid credentials. Use ${DEMO_USER.email} / ${DEMO_USER.password}.`,
-      };
+  setSession(session: CrisisState["session"]) {
+    const previous = state.session?.email ?? null;
+    if (!session) {
+      set((s) => (s.session ? { ...s, session: null } : s));
+      return;
     }
-    set((s) =>
-      log(
-        { ...s, session: { email: user.email, name: user.name, role: user.role, demo: false } },
-        "USER_LOGIN",
-        user.email,
-        "Coordinator",
-        null,
-        "Coordinator signed in",
-        "human",
-      ),
-    );
-    return { ok: true as const };
+    set((s) => {
+      const next = { ...s, session };
+      if (previous === session.email) return next;
+      return log(next, "USER_LOGIN", session.email, "Coordinator", null, "Coordinator signed in", "human");
+    });
   },
-  demoLogin() {
-    set((s) =>
-      log(
-        {
-          ...s,
-          session: { email: DEMO_USER.email, name: DEMO_USER.name, role: DEMO_USER.role, demo: true },
-        },
-        "DEMO_SESSION_STARTED",
-        DEMO_USER.email,
-        "Coordinator",
-        null,
-        "Demo mode session created",
-        "human",
-      ),
-    );
-  },
+
 
   logout() {
     set((s) => log({ ...s, session: null }, "USER_LOGOUT", "session", "Coordinator", null, "Coordinator signed out", "human"));
