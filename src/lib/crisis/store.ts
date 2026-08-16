@@ -120,14 +120,18 @@ function notify(s: CrisisState, title: string, body: string, level: Urgency, lin
 export const actions = {
   /* ------- auth ------- */
   login(email: string, password: string) {
-    if (email.trim().toLowerCase() !== "demo@crisismesh.ai" || password !== "demo123") {
-      return { ok: false as const, error: "Invalid credentials. Use demo@crisismesh.ai / demo123." };
+    const user = findUser(email, password);
+    if (!user) {
+      return {
+        ok: false as const,
+        error: `Invalid credentials. Use ${DEMO_USER.email} / ${DEMO_USER.password}.`,
+      };
     }
     set((s) =>
       log(
-        { ...s, session: { email, name: "Operations Coordinator", role: "Emergency Response Team", demo: false } },
+        { ...s, session: { email: user.email, name: user.name, role: user.role, demo: false } },
         "USER_LOGIN",
-        email,
+        user.email,
         "Coordinator",
         null,
         "Coordinator signed in",
@@ -141,10 +145,10 @@ export const actions = {
       log(
         {
           ...s,
-          session: { email: "demo@crisismesh.ai", name: "Operations Coordinator", role: "Emergency Response Team", demo: true },
+          session: { email: DEMO_USER.email, name: DEMO_USER.name, role: DEMO_USER.role, demo: true },
         },
         "DEMO_SESSION_STARTED",
-        "demo@crisismesh.ai",
+        DEMO_USER.email,
         "Coordinator",
         null,
         "Demo mode session created",
@@ -152,6 +156,7 @@ export const actions = {
       ),
     );
   },
+
   logout() {
     set((s) => log({ ...s, session: null }, "USER_LOGOUT", "session", "Coordinator", null, "Coordinator signed out", "human"));
   },
